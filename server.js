@@ -1,7 +1,21 @@
 const express = require('express');
+const dotenv = require('dotenv');
 
+const ConnectDB = require('./config/ConnectDB');
+
+dotenv.config();
 const app = express();
 
-app.listen(3030, () => {
-  console.log('Server started.');
+ConnectDB();
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.send('working');
+});
+
+const PORT = process.env.PORT || 3030;
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}.`);
 });
