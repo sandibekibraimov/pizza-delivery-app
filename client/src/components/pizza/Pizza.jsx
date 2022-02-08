@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import './Pizza.css';
+import ModalComponent from '../modal/ModalComponent';
 
 const Pizza = ({ pizza }) => {
   const [quantity, setQuantity] = useState(1);
   const [varient, setVarient] = useState('small');
 
+  const [show, setShow] = useState(false);
+
   return (
     <div className='pizza'>
+      <ModalComponent show={show} setShow={setShow} pizza={pizza} />
       <h2 className='pizza-title'>{pizza.name}</h2>
-      <img src={pizza.image} alt={pizza.name} className='pizza-image' />
+      <img
+        src={pizza.image}
+        alt={pizza.name}
+        className='pizza-image'
+        onClick={() => setShow(true)}
+      />
 
       <div className='pizza-details'>
         <div className='pizza-variant'>
@@ -34,11 +43,11 @@ const Pizza = ({ pizza }) => {
 
       <div className='pizza-actions'>
         <div className='pizza-price'>
-          <p>Price: {pizza.prices[0][varient] * quantity} </p>
+          <h2>
+            Price: <span>{pizza.prices[0][varient] * quantity}</span>
+          </h2>
         </div>
-        <div className='pizza-btn'>
-          <button>Add to cart</button>
-        </div>
+        <div className='pizza-btn'>Add to cart</div>
       </div>
     </div>
   );
